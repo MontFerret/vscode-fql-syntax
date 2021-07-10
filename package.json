@@ -1,0 +1,47 @@
+{
+    "name": "fql",
+    "version": "0.0.1",
+    "publisher": "montferretdev",
+    "engines": {
+        "vscode": "^1.55.0"
+    },
+    "displayName": "Ferret Syntax Highligh",
+    "description": "Syntax highlighting for Ferret Query Language",
+    "categories": [
+        "Programming Languages",
+        "Other"
+    ],
+    "keywords": [
+        "fql",
+        "ferret",
+        "montferret"
+    ],
+    "preview": true,
+    "contributes": {
+        "languages": [
+            {
+                "id": "fql",
+                "aliases": [
+                    "FQL",
+                    "fql"
+                ],
+                "extensions": [
+                    ".fql"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "fql",
+                "scopeName": "source.fql",
+                "path": "./syntaxes/fql.tmLanguage.json"
+            }
+        ]
+    },
+    "icon": "media/logo_128x128.png",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/MontFerret/vscode-fql-syntax"
+    }
+}
