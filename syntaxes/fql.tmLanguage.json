@@ -1,0 +1,234 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "FQL (Ferret Query Language)",
+	"patterns": [
+		{
+			"include": "#constant"
+		},
+		{
+			"include": "#number"
+		},
+		{
+			"include": "#keyword"
+		},
+		{
+			"include": "#function"
+		},
+		{
+			"include": "#string"
+		},
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#punctuations"
+		}
+	],
+	"repository": {
+		"constant": {
+			"patterns": [
+				{
+					"name": "constant.language.boolean.true.fql",
+					"match": "(?i)(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))true(?![_$[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))"
+				},
+				{
+					"name": "constant.language.boolean.false.fql",
+					"match": "(?i)(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))false(?![_$[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))"
+				},
+				{
+					"name": "constant.language.null.fql",
+					"match": "(?i)(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))null(?![_$[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))"
+				},
+				{
+					"match": "!|[!<>]?(=|~)|<>|<|>|~",
+					"name": "keyword.operator.comparison.fql"
+				},
+				{
+					"match": "\\-|\\+|\\*|\\%|((?<=[^\\/])(?<=[^\\*]))\\/(?=[^\\/])(?=[^\\*])",
+					"name": "keyword.operator.arithmetic.fql"
+				},
+				{
+					"match": "\\|\\|",
+					"name": "keyword.operator.or.fql"
+				},
+				{
+					"match": "\\&\\&",
+					"name": "keyword.operator.and.fql"
+				},
+				{
+					"begin": "(?!\\?\\.\\s*[^[:digit:]])(\\?)(?!\\?)",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.operator.ternary.fql"
+						}
+					},
+					"end": "\\s*(:)",
+					"endCaptures": {
+						"1": {
+							"name": "keyword.operator.ternary.fql"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#constant"
+						},
+						{
+							"include": "#number"
+						},
+						{
+							"include": "#keyword"
+						},
+						{
+							"include": "#function"
+						},
+						{
+							"include": "#string"
+						},
+						{
+							"include": "#comments"
+						},
+						{
+							"include": "#punctuations"
+						}
+					]
+				}
+			]
+		},
+		"number": {
+			"match": "\\b\\d+\\b",
+			"name": "constant.numeric.fql"
+		},
+		"keyword": {
+			"patterns": [
+				{
+					"match": "(?i)\\b(FOR|RETURN|DISTINCT|FILTER|SORT|LIMIT|LET|COLLECT|ASC|DESC|NONE|NULL|TRUE|FALSE|USE|INTO|KEEP|WITH|COUNT|ALL|ANY|AGGREGATE|LIKE|NOT|IN|DO|WHILE)\\b",
+					"name": "keyword.control.fql"
+				}
+			]
+		},
+		"function": {
+			"patterns": [
+				{
+					"match": "(?i)\\b(DATE_DAY|DOCUMENT|T::NONE|IS_HTML_ELEMENT|PATH::IS_ABS|T::NOT::LTE|T::BINARY|T::INT|REGEX_SPLIT|DATE_MINUTE|POSITION|HAS|WAIT_NO_CLASS|DOWNLOAD|WAIT_ATTR_ALL|T::NOT::LT|IS_OBJECT|WAIT_STYLE|ATTR_QUERY|COOKIE_SET|RANGE|IS_BOOL|LEFT|POW|RAND|VARIANCE_POPULATION|DOCUMENT_EXISTS|WAIT_CLASS_ALL|LTRIM|SHA1|JSON_STRINGIFY|ATAN|PI|PUSH|T::OBJECT|STDDEV_POPULATION|ATAN2|DATE_FORMAT|T::MATCH|RIGHT|DATE_SECOND|KEEP_KEYS|STYLE_GET|ELEMENT_EXISTS|UNIQUE|STYLE_REMOVE|SCREENSHOT|PATH::BASE|IS_INT|IS_NONE|SUBSTITUTE|T::STRING|PAGINATION|SELECT|IS_ARRAY|CONCAT|REMOVE_NTH|FRAMES|JSON_PARSE|SUBSTRING|WAIT|T::NOT::ARRAY|ASIN|EXP2|UNION|TAN|LOG|DATE_DIFF|NAVIGATE|MOUSE|WAIT_NO_ELEMENT|IS_HTML_DOCUMENT|MERGE_RECURSIVE|WAIT_CLASS|T::NOT::DATETIME|T::NOT::TRUE|T::GT|FMT|SORTED|NTH|INPUT_CLEAR|T::NOT::FALSE|T::ARRAY|FROM_BASE64|SCROLL_ELEMENT|ATTR_GET|T::NOT::OBJECT|INCLUDES|OUTERSECTION|LIKE|T::NOT::BINARY|TYPENAME|TO_INT|WAIT_NO_CLASS_ALL|IO::NET::HTTP::DO|PATH::MATCH|TO_BOOL|REMOVE_VALUES|INPUT|T::NOT::GT|ENCODE_URI_COMPONENT|DATE|TO_ARRAY|IS_FLOAT|DATE_MILLISECOND|INTERSECTION|INNER_HTML|T::NOT::EQ|PDF|ATTR_REMOVE|T::NOT::NONE|T::EMPTY|HOVER|IS_STRING|POP|UNION_DISTINCT|KEYS|WAIT_NO_ATTR|PATH::CLEAN|SPLIT|COS|DATE_YEAR|T::NOT::INT|WAIT_ELEMENT|PATH::DIR|T::DATETIME|CONTAINS|DATE_SUBTRACT|T::EQ|SHA512|DATE_DAYOFWEEK|CLICK|PATH::SEPARATE|DECODE_URI_COMPONENT|DEGREES|SCROLL_BOTTOM|SORTED_UNIQUE|INNER_TEXT|XPATH|SUM|PERCENTILE|DATE_HOUR|T::NOT::LEN|TRIM|RTRIM|ZIP|IO::FS::READ|T::FLOAT|RANDOM_TOKEN|ABS|SLICE|ELEMENTS|NAVIGATE_FORWARD|PARSE|ESCAPE_HTML|VARIANCE_SAMPLE|FIRST|SCROLL_TOP|WAIT_ATTR|T::NOT::GTE|FOCUS|T::LT|AVERAGE|WAIT_STYLE_ALL|BLUR|PATH::JOIN|SIN|RADIANS|LENGTH|CLICK_ALL|PATH::EXT|T::NOT::INCLUDE|FIND_FIRST|STDDEV_SAMPLE|T::NOT::EMPTY|T::NOT::FLOAT|FIND_LAST|MIN|VALUES|T::INCLUDE|IS_BINARY|MINUS|INNER_TEXT_ALL|IO::NET::HTTP::DELETE|IO::NET::HTTP::POST|T::FALSE|TO_FLOAT|UNESCAPE_HTML|REGEX_TEST|MERGE|COOKIE_GET|WAIT_NO_STYLE_ALL|TO_BASE64|T::NOT::MATCH|T::FAIL|MAX|LOG10|IS_DATETIME|IO::NET::HTTP::PUT|MD5|LOG2|REVERSE|DATE_MONTH|APPEND|FLATTEN|IO::FS::WRITE|T::LTE|IS_NAN|UPPER|NOW|NAVIGATE_BACK|WAIT_NO_ATTR_ALL|INNER_HTML_ALL|CONCAT_SEPARATOR|FLOOR|ACOS|SHIFT|CEIL|ROUND|DATE_ADD|ELEMENT|COOKIE_DEL|IO::NET::HTTP::GET|TO_DATETIME|REGEX_REPLACE|LOWER|DATE_DAYS_IN_MONTH|INNER_TEXT_SET|EXP|UNSHIFT|ATTR_SET|T::NOT::STRING|T::LEN|DATE_COMPARE|DATE_QUARTER|LAST|WAIT_NO_STYLE|ELEMENTS_COUNT|PRINT|REGEX_MATCH|DATE_LEAPYEAR|REMOVE_VALUE|WAIT_NAVIGATION|STYLE_SET|MEDIAN|SQRT|INNER_HTML_SET|SCROLL|T::GTE|TO_STRING|DATE_DAYOFYEAR|T::TRUE)\\b",
+					"name": "support.function.fql"
+				}
+			]
+		},
+		"string": {
+			"patterns": [
+				{
+					"begin": "'",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.begin.fql"
+						}
+					},
+					"end": "'",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.end.fql"
+						}
+					},
+					"name": "string.quoted.single.fql",
+					"patterns": [
+						{
+							"match": "\\\\(x\\h{2}|[0-2][0-7]{0,2}|3[0-6][0-7]?|37[0-7]?|[4-7][0-7]?|.)",
+							"name": "constant.character.escape.fql"
+						},
+						{
+							"match": "[^']*[^\\n\\r'\\\\]$",
+							"name": "invalid.illegal.string.fql"
+						}
+					]
+				},
+				{
+					"begin": "\"",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.begin.fql"
+						}
+					},
+					"end": "\"",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.end.fql"
+						}
+					},
+					"name": "string.quoted.double.fql",
+					"patterns": [
+						{
+							"match": "\\\\(x\\h{2}|[0-2][0-7]{0,2}|3[0-6][0-7]|37[0-7]?|[4-7][0-7]?|.)",
+							"name": "constant.character.escape.fql"
+						},
+						{
+							"match": "[^\"]*[^\\n\\r\"\\\\]$",
+							"name": "invalid.illegal.string.fql"
+						}
+					]
+				},
+				{
+					"begin": "`",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.begin.fql"
+						}
+					},
+					"end": "`",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.end.fql"
+						}
+					},
+					"name": "string.quoted.template.fql",
+					"patterns": [
+						{
+							"match": "\\\\(x\\h{2}|[0-2][0-7]{0,2}|3[0-6][0-7]?|37[0-7]?|[4-7][0-7]?|.)",
+							"name": "constant.character.escape.fql"
+						}
+					]
+				}
+			]
+		},
+		"comments": {
+			"patterns": [
+				{
+					"match": "//.*",
+					"name": "comment.line.double-slash.fql"
+				},
+				{
+					"begin": "/\\*\\*(?!/)",
+					"captures": {
+						"0": {
+							"name": "punctuation.definition.comment.fql"
+						}
+					},
+					"end": "\\*/",
+					"name": "comment.block.documentation.fql"
+				},
+				{
+					"begin": "/\\*",
+					"captures": {
+						"0": {
+							"name": "punctuation.definition.comment.fql"
+						}
+					},
+					"end": "\\*/",
+					"name": "comment.block.fql"
+				}
+			]
+		},
+		"punctuations": {
+			"patterns": [
+				{
+					"match": "\\{|\\}|\\(|\\)|\\[|\\]",
+					"name": "punctuation.definition.block.fql"
+				},
+				{
+					"match": "\\,|\\.|\\:",
+					"name": "punctuation.separator.block.fql"
+				}
+			]
+		}
+	},
+	"scopeName": "source.fql"
+}
