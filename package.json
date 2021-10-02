@@ -17,7 +17,17 @@
         "montferret"
     ],
     "preview": true,
+    "activationEvents": [
+        "onCommand:ferret.run_file"
+    ],
+    "main": "./out/extension.js",
     "contributes": {
+        "commands": [
+            {
+                "command": "ferret.run_file",
+                "title": "Ferret: Run File"
+            }
+        ],
         "languages": [
             {
                 "id": "fql",
@@ -43,5 +53,17 @@
     "repository": {
         "type": "git",
         "url": "https://github.com/MontFerret/vscode-fql-syntax"
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./"
+    },
+    "dependencies": {
+        "@types/vscode": "^1.59.0",
+        "child_process": "^1.0.2"
+    },
+    "devDependencies": {
+        "@types/node": "^16.7.1"
     }
 }
