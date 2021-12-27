@@ -1,6 +1,6 @@
 {
     "name": "fql",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "publisher": "montferretdev",
     "engines": {
         "vscode": "^1.55.0"
